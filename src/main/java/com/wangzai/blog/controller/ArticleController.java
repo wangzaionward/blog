@@ -16,6 +16,12 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    /**
+     * 根据id查询文章详情
+     * @param map
+     * @param articleId
+     * @return
+     */
     @GetMapping("detail")
     public String detail(Map<String, Object> map, @NotBlank Integer articleId){
         map.put("article", articleService.getOne(articleId));
