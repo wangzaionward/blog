@@ -35,4 +35,9 @@ public class ArticleServiceImpl implements ArticleService {
     public Article getOne(Integer articleId) {
         return articleDao.getOne(articleId);
     }
+
+    @Override
+    public Article save(Article article) {
+        return articleDao.save(article);
+    }
 }

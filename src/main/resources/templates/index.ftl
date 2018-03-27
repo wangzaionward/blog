@@ -13,6 +13,19 @@
         .well:hover{
             box-shadow: 0 0 10px lightgray; border:1px solid lightgray;
         }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 12px 16px;
+        }
+
+        .ww:hover .dropdown-content {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -25,7 +38,16 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <#if Session.user ? exists>
-                    <li id="username"><a href="#">${Session["user"].username}</a></li>
+                    <li class="ww"><a href="#">${Session["user"].username}</a>
+                        <div class="dropdown-content" style="z-index: 1">
+                            <p><a href="/blog/article/articleManage">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;&nbsp;写文章
+                            </a></p>
+                            <p><a href="/blog/user/userManage">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;个人中心
+                            </a></p>
+                        </div>
+                    </li>
                     <li id="logout"><a href="/blog/logout">退出</a></li>
                 <#else>
                     <li id="login"><a href="/blog/login">登录</a></li>

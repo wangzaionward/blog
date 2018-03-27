@@ -61,16 +61,9 @@
 </nav>
 <div class="container-fluid">
     <div class="col-xs-2">
-        <img src="${article.imgUrl}" style="height: 100px; height: 100px;">
-        <h3>${article.title}</h3>
-        <p>${article.author}</p>
-        <p>${article.createTime}</p>
-        <p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> : ${article.hits!'0'} 浏览量</p>
+
     </div>
     <div class="col-xs-8">
-        <h1>${article.title}</h1>
-        <hr>
-        <p>${article.content}</p>
     </div>
     <div class="col-xs-2"></div>
 </div>

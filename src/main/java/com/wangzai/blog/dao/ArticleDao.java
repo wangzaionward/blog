@@ -26,4 +26,6 @@ public interface ArticleDao extends JpaRepository<Article, Integer> {
     Page<Article> findByCategoryId(Integer categoryId, Pageable pageable);
 
     List<Article> findAll();
+
+    Article save(Article article);
 }

@@ -12,4 +12,9 @@ public interface CategoryService {
      */
     List<Category> findAll();
 
+    List<Category> findByUserId(Integer userId);
+
+    Category save(Category category);
+
+    void delete(Category category);
 }

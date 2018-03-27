@@ -61,18 +61,50 @@
 </nav>
 <div class="container-fluid">
     <div class="col-xs-2">
-        <img src="${article.imgUrl}" style="height: 100px; height: 100px;">
-        <h3>${article.title}</h3>
-        <p>${article.author}</p>
-        <p>${article.createTime}</p>
-        <p><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> : ${article.hits!'0'} 浏览量</p>
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" class="active"><a href="javascript:void(0);">文章</a></li>
+            <li role="presentation"><a href="javascript:void(0);"  id="categoryLeft">新建分类</a></li>
+            <li role="presentation"><a href="javascript:void(0);" id="articleLeft">写文章</a></li>
+        </ul>
     </div>
     <div class="col-xs-8">
-        <h1>${article.title}</h1>
-        <hr>
-        <p>${article.content}</p>
+        <div id="categoryRight" style="display: none">
+            <h4>请输入分类名称</h4>
+            <input type="text" class="form-control" placeholder="分类名称" style="width: 50%;">
+            <br>
+            <button class="btn btn-primary">确定</button>
+        </div>
+        <div id="articleRight" style="display: none">
+            <h4>请输入文章标题</h4>
+            <input type="text" class="form-control" placeholder="标题" style="width: 50%;">
+            <h4>请输入简介</h4>
+            <input type="text" class="form-control" placeholder="简介">
+            <h4>请输入正文</h4>
+            <input type="text" class="form-control" placeholder="正文">
+            <h4>请输入文章分类</h4>
+            <select class="form-control" style="width: 30%;">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+            <br><br>
+            <button class="btn btn-primary">确定</button>
+        </div>
     </div>
     <div class="col-xs-2"></div>
 </div>
+
+<script>
+    $("#categoryLeft").click(function () {
+        $("#articleRight").css("display", "none");
+        $("#categoryRight").css("display", "block");
+    });
+    $("#articleLeft").click(function () {
+        $("#categoryRight").css("display", "none");
+        $("#articleRight").css("display", "block");
+    });
+</script>
 </body>
 </html>

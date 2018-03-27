@@ -26,4 +26,6 @@ public interface ArticleService {
 
     Article getOne(Integer articleId);
 
+    Article save(Article article);
+
 }

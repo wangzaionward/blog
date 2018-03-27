@@ -18,4 +18,19 @@ public class CategoryServiceImpl implements CategoryService{
     public List<Category> findAll() {
         return categoryDao.findAll();
     }
+
+    @Override
+    public List<Category> findByUserId(Integer userId) {
+        return categoryDao.findByUserId(userId);
+    }
+
+    @Override
+    public Category save(Category category) {
+        return categoryDao.save(category);
+    }
+
+    @Override
+    public void delete(Category category) {
+        categoryDao.delete(category);
+    }
 }
