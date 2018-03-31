@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -42,7 +43,11 @@ public class ArticleController {
     }
 
     @GetMapping("articleManage")
-    public String articleManage(){
+    public String articleManage(Map<String, Object> map, HttpSession session){
+        User user = UserUtil.getCurrentUser(session);
+        if(null == user) return "login";
+        List<Category> categoryList = categoryService.findByUserId(user.getId());
+        map.put("categoryList", categoryList);
         return "articleManage";
     }
 

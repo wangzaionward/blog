@@ -22,6 +22,9 @@
         .ww:hover .dropdown-content {
             display: block;
         }
+        .list-group-item:hover{
+            box-shadow: 0 0 10px lightgray; border:1px solid lightgray;
+        }
     </style>
 </head>
 <body>
@@ -63,16 +66,28 @@
     <div class="col-xs-2">
         <ul class="nav nav-pills nav-stacked">
             <li role="presentation" class="active"><a href="javascript:void(0);">文章</a></li>
+            <li role="presentation"><a href="javascript:void(0);"  id="categoryLeft">所有文章</a></li>
             <li role="presentation"><a href="javascript:void(0);"  id="categoryLeft">新建分类</a></li>
             <li role="presentation"><a href="javascript:void(0);" id="articleLeft">写文章</a></li>
         </ul>
     </div>
     <div class="col-xs-8">
-        <div id="categoryRight" style="display: none">
-            <h4>请输入分类名称</h4>
-            <input type="text" class="form-control" placeholder="分类名称" style="width: 50%;">
+        <div id="categoryRight" style="display: block">
+            <h4>新增分类</h4>
+            <input id="categoryName" type="text" class="form-control" placeholder="分类名称" style="width: 50%;">
             <br>
-            <button class="btn btn-primary">确定</button>
+            <button class="btn btn-primary" id="createCategoryBtn">确定</button>
+            <button class="btn" onclick="history.go(-1)">返回</button>
+            <br><br>
+            <h4>已有分类</h4>
+            <ul class="list-group">
+                <#list categoryList as item>
+                    <li class="list-group-item" style="width: 50%;">
+                        <a href="/blog/findAllByCategoryId?categoryId=${item.id}">${item.name!''}</span></a>
+                        <a href="#" style="float: right"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                    </li>
+                </#list>
+            </ul>
         </div>
         <div id="articleRight" style="display: none">
             <h4>请输入文章标题</h4>
@@ -83,14 +98,12 @@
             <input type="text" class="form-control" placeholder="正文">
             <h4>请输入文章分类</h4>
             <select class="form-control" style="width: 30%;">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+                <#list categoryList as item>
+                    <option>${item.name}</option>
+                </#list>
             </select>
             <br><br>
-            <button class="btn btn-primary">确定</button>
+            <button class="btn btn-primary" id="submitBtn2">确定</button>
         </div>
     </div>
     <div class="col-xs-2"></div>
@@ -104,6 +117,28 @@
     $("#articleLeft").click(function () {
         $("#categoryRight").css("display", "none");
         $("#articleRight").css("display", "block");
+    });
+
+    $("#createCategoryBtn").click(function () {
+        var categoryName = $("#categoryName").val();
+        if(null == categoryName || categoryName == ""){
+            alert("分类名不能为空");
+            return;
+        }
+        $.ajax({
+            type: "post",
+            url: "/blog/article/createCategory",
+            dataType:"json",
+            data: {categoryName: categoryName},
+            success:function (data) {
+                if(data == true){
+                    alert("添加成功");
+                    location.reload();
+                }else{
+                    alert("添加失败,请稍候再试");
+                }
+            }
+        });
     });
 </script>
 </body>
