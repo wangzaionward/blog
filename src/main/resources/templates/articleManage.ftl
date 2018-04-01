@@ -75,6 +75,10 @@
         <div id="categoryRight" style="display: block">
             <h4>新增分类</h4>
             <input id="categoryName" type="text" class="form-control" placeholder="分类名称" style="width: 50%;">
+            <div class="alert alert-warning hide" id="a">
+                <strong style="width: 50%">不能为空</strong>
+            </div>
+            <div class="alert alert-danger hide" id="adderrmsg">is must be not null</div>
             <br>
             <button class="btn btn-primary" id="createCategoryBtn">确定</button>
             <button class="btn" onclick="history.go(-1)">返回</button>
@@ -84,7 +88,7 @@
                 <#list categoryList as item>
                     <li class="list-group-item" style="width: 50%;">
                         <a href="/blog/findAllByCategoryId?categoryId=${item.id}">${item.name!''}</span></a>
-                        <a href="#" style="float: right"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                        <a href="#" style="float: right" class="close"><span>&times;</span></a>
                     </li>
                 </#list>
             </ul>
@@ -122,9 +126,10 @@
     $("#createCategoryBtn").click(function () {
         var categoryName = $("#categoryName").val();
         if(null == categoryName || categoryName == ""){
-            alert("分类名不能为空");
+            $("#a").removeClass("hide");
             return;
         }
+        $("#a").addClass("hide");
         $.ajax({
             type: "post",
             url: "/blog/article/createCategory",

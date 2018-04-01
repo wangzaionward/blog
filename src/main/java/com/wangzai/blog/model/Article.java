@@ -40,6 +40,9 @@ public class Article {
     @Column(name = "img_url")
     private String imgUrl;
 
+    @Column(name = "category_name")
+    private String categoryName;
+
     public Integer getId() {
         return id;
     }
@@ -126,5 +129,13 @@ public class Article {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }
