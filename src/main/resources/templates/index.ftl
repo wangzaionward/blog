@@ -18,7 +18,7 @@
     <div class="col-xs-8">
         <ul id="myTab" class="nav nav-tabs" style="margin-bottom: 20px;">
             <li class="active">
-                <a href="#new" data-toggle="tab">最新</a>
+                <a href="#new" data-toggle="tab">最新发布</a>
             </li>
             <li><a href="#hot" data-toggle="tab">热门</a></li>
             <li><a href="#top" data-toggle="tab">精品</a></li>
@@ -28,7 +28,7 @@
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade in active" id="new">
             <#if articleList ? size <= 0>
-                <div class="alert alert-success">这里空空如也</div>
+                <div class="alert alert-info">这里空空如也</div>
             <#else>
                 <#list articleList as item>
                     <div class="media">
@@ -78,7 +78,7 @@
     </div>
     <div class="col-xs-2">
         <div class="panel panel-primary">
-            <div class="panel-heading">标签组</div>
+            <div class="panel-heading">标签栏</div>
             <div class="panel-body">
                 <span class="label label-primary">python</span>
                 <span class="label label-success">java</span>
@@ -92,12 +92,6 @@
                 <span class="label label-danger">数据库</span>
             </div>
         </div>
-        <ul class="nav nav-pills nav-stacked">
-            <li role="presentation" class="active"><a href="#">推荐阅读</a></li>
-            <li role="presentation"><a href="">QQ : 188888888</a></li>
-            <li role="presentation"><a href="#">微信 : 18888888888</a></li>
-            <li role="presentation"><a href="#">github : 18888888888</a></li>
-        </ul>
         <ul class="nav nav-pills nav-stacked">
             <li role="presentation" class="active"><a href="#">联系我</a></li>
             <li role="presentation"><a href="">QQ : 188888888</a></li>

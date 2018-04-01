@@ -45,9 +45,10 @@ public class ArticleController {
     @GetMapping("articleManage")
     public String articleManage(Map<String, Object> map, HttpSession session){
         User user = UserUtil.getCurrentUser(session);
-        if(null == user) return "login";
         List<Category> categoryList = categoryService.findByUserId(user.getId());
+        List<Article> articleList = articleService.findAll();
         map.put("categoryList", categoryList);
+        map.put("articleList", articleList);
         return "articleManage";
     }
 
