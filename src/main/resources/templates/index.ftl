@@ -4,6 +4,15 @@
     .label{
         display: inline-block;
     }
+    .media{
+        padding-top:20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-radius: 5px;
+    }
+    .media:hover{
+        box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.2);
+    }
 </style>
 
 <div class="container-fluid">
@@ -43,7 +52,7 @@
                                 <small><a href="#"><span class="glyphicon glyphicon-th-list"></span> ${item.categoryName}</a></small>
                                 <small style="float: right;"><span class="glyphicon glyphicon-time">${item.createTime}</span></small>
                             </h4>
-                            <p>${item.description}</small></p>
+                            <p style="padding-top: 10px; padding-bottom: 27px">${item.description}</p>
                             <span class="glyphicon glyphicon-pencil">${item.author!''}</span>&emsp;
                             <span class="glyphicon glyphicon-eye-open">${item.hits!'0'}</span>&emsp;
                             <span class="glyphicon glyphicon-thumbs-up">${item.hits!'0'}</span>&emsp;

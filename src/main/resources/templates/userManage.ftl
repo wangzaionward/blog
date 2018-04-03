@@ -9,6 +9,8 @@
     }
     .media{
         padding-top:20px;
+        padding-left: 20px;
+        border-radius: 5px;
     }
     .btn{
         margin-right: 20px;
