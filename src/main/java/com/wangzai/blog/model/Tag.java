@@ -3,7 +3,7 @@ package com.wangzai.blog.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "admin")
+@Table(name = "tag")
 public class Tag {
 
     @Id
