@@ -13,33 +13,38 @@
     .media:hover{
         box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.2);
     }
+    .sidebar{
+        background-color: #ddddff;
+        font-weight: bold;
+    }
 </style>
 
 <div class="container-fluid">
     <div class="col-xs-2">
         <div class="list-group">
             <a href="#" class="list-group-item active">文章分类</a>
-            <#list categoryList as item>
-                <a href="/blog/findAllByCategoryId?categoryId=${item.id}" class="list-group-item">${item.name!''}</a>
-            </#list>
+            <#if categoryList ? size <= 0>
+                <div class="alert alert-info">这里空空如也</div>
+            <#else>
+                <#list categoryList as item>
+                    <a href="/blog/article/query/${item.id}" class="list-group-item left">${item.name!''}</a>
+                </#list>
+            </#if>
         </div>
     </div>
     <div class="col-xs-8">
         <ul id="myTab" class="nav nav-tabs" style="margin-bottom: 20px;">
-            <li class="active">
-                <a href="#new" data-toggle="tab">最新发布</a>
-            </li>
-            <li><a href="#hot" data-toggle="tab">热门</a></li>
-            <li><a href="#top" data-toggle="tab">精品</a></li>
-            <li><a href="#note" data-toggle="tab">笔记</a></li>
-            <li><a href="#other" data-toggle="tab">其他</a></li>
+            <li class="active"><a href="#new" data-toggle="tab" value="1">最新发布</a></li>
+            <li><a href="#hot" data-toggle="tab" value="2">热门</a></li>
+            <li><a href="#top" data-toggle="tab" value="3">精品</a></li>
+            <li><a href="#comments" data-toggle="tab" value="4">评论最多</a></li>
         </ul>
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade in active" id="new">
-            <#if articleList ? size <= 0>
+            <#if articleList2 ? size <= 0>
                 <div class="alert alert-info">这里空空如也</div>
             <#else>
-                <#list articleList as item>
+                <#list articleList2 as item>
                     <div class="media">
                         <div class="media-left">
                             <a href="#">
@@ -48,15 +53,17 @@
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading">
-                                <strong><a href="/blog/article/detail?articleId=${item.id}">${item.title!''}</a></strong> &emsp;
+                                <strong><a href="/blog/article/detail/${item.id!''}">${item.title!''}</a></strong> &emsp;
                                 <small><a href="#"><span class="glyphicon glyphicon-th-list"></span> ${item.categoryName}</a></small>
                                 <small style="float: right;"><span class="glyphicon glyphicon-time">${item.createTime}</span></small>
                             </h4>
-                            <p style="padding-top: 10px; padding-bottom: 27px">${item.description}</p>
-                            <span class="glyphicon glyphicon-pencil">${item.author!''}</span>&emsp;
-                            <span class="glyphicon glyphicon-eye-open">${item.hits!'0'}</span>&emsp;
-                            <span class="glyphicon glyphicon-thumbs-up">${item.hits!'0'}</span>&emsp;
-                            <span class="glyphicon glyphicon-comment">${item.hits!'0'}</span>
+                            <p style="padding-top: 10px; padding-bottom: 20px">${item.description}</p>
+                            <p style="float: right">
+                                <span class="glyphicon glyphicon-pencil">${item.author!''}</span>&emsp;
+                                <span class="glyphicon glyphicon-eye-open">${item.hits!'0'}</span>&emsp;
+                                <span class="glyphicon glyphicon-thumbs-up">${item.hits!'0'}</span>&emsp;
+                                <span class="glyphicon glyphicon-comment">${item.hits!'0'}</span>
+                            </p>
                         </div>
                         <hr>
                     </div>
@@ -64,49 +71,106 @@
             </#if>
             </div>
             <div class="tab-pane fade" id="hot">
-            <#list articleList as item>
-                <div class="well well-lg">${item.title!''}</div>
-            </#list>
+            <#if articleList3 ? size <= 0>
+                <div class="alert alert-info">这里空空如也</div>
+            <#else>
+                <#list articleList3 as item>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img src="/image/desc_1.png" style="border-radius: 10px">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                <strong><a href="/blog/article/detail/${item.id!''}">${item.title!''}</a></strong> &emsp;
+                                <small><a href="#"><span class="glyphicon glyphicon-th-list"></span> ${item.categoryName}</a></small>
+                                <small style="float: right;"><span class="glyphicon glyphicon-time">${item.createTime}</span></small>
+                            </h4>
+                            <p style="padding-top: 10px; padding-bottom: 20px">${item.description}</p>
+                            <p style="float: right">
+                                <span class="glyphicon glyphicon-pencil">${item.author!''}</span>&emsp;
+                                <span class="glyphicon glyphicon-eye-open">${item.hits!'0'}</span>&emsp;
+                                <span class="glyphicon glyphicon-thumbs-up">${item.hits!'0'}</span>&emsp;
+                                <span class="glyphicon glyphicon-comment">${item.hits!'0'}</span>
+                            </p>
+                        </div>
+                        <hr>
+                    </div>
+                </#list>
+            </#if>
             </div>
             <div class="tab-pane fade" id="top">
-            <#list articleList as item>
-                <div class="well well-lg">${item.title!''}</div>
-            </#list>
+            <#if articleList4 ? size <= 0>
+                <div class="alert alert-info">这里空空如也</div>
+            <#else>
+                <#list articleList4 as item>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img src="/image/desc_1.png" style="border-radius: 10px">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                <strong><a href="/blog/article/detail/${item.id!''}">${item.title!''}</a></strong> &emsp;
+                                <small><a href="#"><span class="glyphicon glyphicon-th-list"></span> ${item.categoryName}</a></small>
+                                <small style="float: right;"><span class="glyphicon glyphicon-time">${item.createTime}</span></small>
+                            </h4>
+                            <p style="padding-top: 10px; padding-bottom: 20px">${item.description}</p>
+                            <p style="float: right">
+                                <span class="glyphicon glyphicon-pencil">${item.author!''}</span>&emsp;
+                                <span class="glyphicon glyphicon-eye-open">${item.hits!'0'}</span>&emsp;
+                                <span class="glyphicon glyphicon-thumbs-up">${item.hits!'0'}</span>&emsp;
+                                <span class="glyphicon glyphicon-comment">${item.hits!'0'}</span>
+                            </p>
+                        </div>
+                        <hr>
+                    </div>
+                </#list>
+            </#if>
             </div>
-            <div class="tab-pane fade" id="note">
-            <#list articleList as item>
-                <div class="well well-lg">${item.title!''}</div>
-            </#list>
-            </div>
-            <div class="tab-pane fade" id="other">
-            <#list articleList as item>
-                <div class="well well-lg">${item.title!''}</div>
-            </#list>
+            <div class="tab-pane fade" id="comments">
+            <#if articleList5 ? size <= 0>
+                <div class="alert alert-info">这里空空如也</div>
+            <#else>
+                <#list articleList5 as item>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img src="/image/desc_1.png" style="border-radius: 10px">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                <strong><a href="/blog/article/detail/${item.id!''}">${item.title!''}</a></strong> &emsp;
+                                <small><a href="#"><span class="glyphicon glyphicon-th-list"></span> ${item.categoryName}</a></small>
+                                <small style="float: right;"><span class="glyphicon glyphicon-time">${item.createTime}</span></small>
+                            </h4>
+                            <p style="padding-top: 10px; padding-bottom: 20px">${item.description}</p>
+                            <p style="float: right">
+                                <span class="glyphicon glyphicon-pencil">${item.author!''}</span>&emsp;
+                                <span class="glyphicon glyphicon-eye-open">${item.hits!'0'}</span>&emsp;
+                                <span class="glyphicon glyphicon-thumbs-up">${item.hits!'0'}</span>&emsp;
+                                <span class="glyphicon glyphicon-comment">${item.hits!'0'}</span>
+                            </p>
+                        </div>
+                        <hr>
+                    </div>
+                </#list>
+            </#if>
             </div>
         </div>
-    </div>
-    <div class="col-xs-2">
-        <div class="panel panel-primary">
-            <div class="panel-heading">标签栏</div>
-            <div class="panel-body">
-                <span class="label label-primary">python</span>
-                <span class="label label-success">java</span>
-                <span class="label label-info">机器学习</span>
-                <span class="label label-warning">人工智能</span>
-                <span class="label label-danger">大数据</span>
-                <span class="label label-primary">分布式</span>
-                <span class="label label-success">操作系统</span>
-                <span class="label label-info">面试</span>
-                <span class="label label-warning">职场</span>
-                <span class="label label-danger">数据库</span>
-            </div>
-        </div>
-        <ul class="nav nav-pills nav-stacked">
-            <li role="presentation" class="active"><a href="#">联系我</a></li>
-            <li role="presentation"><a href="">QQ : 188888888</a></li>
-            <li role="presentation"><a href="#">微信 : 18888888888</a></li>
-            <li role="presentation"><a href="#">github : 18888888888</a></li>
-        </ul>
     </div>
 </div>
+
+<script>
+    $(function () {
+
+        $(".left").click(function () {
+            $(this).addClass("sidebar");
+            $(this).siblings().removeClass("sidebar");
+        });
+    });
+</script>
 </@myLayout.myLayout>

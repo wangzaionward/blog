@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ArticleServiceImpl implements ArticleService {
@@ -32,12 +33,15 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Article getOne(Integer articleId) {
-        return articleDao.getOne(articleId);
+    public Article findOne(Integer articleId) {
+        Optional<Article> article = articleDao.findById(articleId);
+        if(article.isPresent()) return article.get();
+        return null;
     }
 
     @Override
     public Article save(Article article) {
         return articleDao.save(article);
     }
+
 }

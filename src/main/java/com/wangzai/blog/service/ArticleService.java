@@ -24,7 +24,7 @@ public interface ArticleService {
 
     List<Article> findAll();
 
-    Article getOne(Integer articleId);
+    Article findOne(Integer articleId);
 
     Article save(Article article);
 

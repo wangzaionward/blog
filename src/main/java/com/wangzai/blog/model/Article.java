@@ -1,6 +1,8 @@
 package com.wangzai.blog.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -21,13 +23,14 @@ public class Article {
 
     private Integer hits;
 
+    @NotFound(action = NotFoundAction.IGNORE)
     @Column(name = "user_id")
     private Integer userId;
 
+    @NotFound(action = NotFoundAction.IGNORE)
     @Column(name = "category_id")
     private Integer categoryId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
     @Column(name = "create_time")
     private Date createTime;
 
@@ -42,6 +45,12 @@ public class Article {
 
     @Column(name = "category_name")
     private String categoryName;
+
+    private Integer type;//文章类型 0:私密 1:公开 默认0
+
+    private Integer like;//喜欢(点赞)
+
+    private Integer comments;//评论数
 
     public Integer getId() {
         return id;
@@ -137,5 +146,29 @@ public class Article {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getLike() {
+        return like;
+    }
+
+    public void setLike(Integer like) {
+        this.like = like;
+    }
+
+    public Integer getComments() {
+        return comments;
+    }
+
+    public void setComments(Integer comments) {
+        this.comments = comments;
     }
 }

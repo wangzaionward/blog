@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-top" xmlns="http://www.w3.org/1999/html">
+<nav class="navbar navbar-inverse" xmlns="http://www.w3.org/1999/html">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="http://localhost:8080/blog/index">Blog <small>每天进步一点点...</small></a>
@@ -9,7 +9,8 @@
                 <li><a href="#">github</a></li>
                 <li><a href="#">美文</a></li>
                 <li><a href="#">书籍</a></li>
-                <li><a href="#">互动</a></li>
+                <li><a href="#">笔记</a></li>
+                <li><a href="#">资源下载</a></li>
                 <li><a href="#">关于本站</a></li>
             </ul>
             <#if Session.user ? exists>

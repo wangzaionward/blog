@@ -3,13 +3,13 @@ package com.wangzai.blog.dao;
 import com.wangzai.blog.model.Article;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface ArticleDao extends JpaRepository<Article, Integer> {
+public interface ArticleDao extends CrudRepository<Article, Integer> {
 
     /**
      * 根据文章分类id查询所有文章
@@ -28,4 +28,5 @@ public interface ArticleDao extends JpaRepository<Article, Integer> {
     List<Article> findAll();
 
     Article save(Article article);
+
 }

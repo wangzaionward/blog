@@ -17,7 +17,6 @@
 
         body {
             margin-bottom: 100px;
-            padding-top: 70px;
         }
 
         footer {

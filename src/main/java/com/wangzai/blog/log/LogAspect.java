@@ -1,25 +1,26 @@
 package com.wangzai.blog.log;
 
+import com.wangzai.blog.Exception.SystemException;
+import com.wangzai.blog.constant.ErrorPage;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
-@Aspect
-@Component
+@Aspect//切面
+@Component//注册到spring容器
 public class LogAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
+    //切点
     @Pointcut("execution(public * com.wangzai.blog.controller.*.*(..))")
     public void pointCut(){}
 
@@ -40,6 +41,22 @@ public class LogAspect {
         logger.info("=================返回内容==================");
         logger.info("return:" + ret);
         logger.info("=================返回内容==================");
+    }
+
+    @AfterThrowing(throwing = "e", pointcut = "pointCut()")
+    public ModelAndView doAfterThrowing(Throwable e){
+        ModelAndView modelAndView = new ModelAndView();
+        ServletRequestAttributes attributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        if(e instanceof SystemException){
+            logger.info("500 : " + request.getRequestURL());
+            modelAndView.setViewName(ErrorPage.SYSTEM_ERROR);
+            return modelAndView;
+        }else {
+            logger.info("404 : " + request.getRequestURL());
+            modelAndView.setViewName(ErrorPage.NOT_FOUND);
+            return modelAndView;
+        }
     }
 
 }
