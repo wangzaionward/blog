@@ -28,4 +28,6 @@ public interface ArticleService {
 
     Article save(Article article);
 
+    List<Article> query(Article article);
+
 }

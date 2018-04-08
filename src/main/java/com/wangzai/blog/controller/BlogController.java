@@ -12,17 +12,17 @@ import com.wangzai.blog.utils.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotBlank;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.wangzai.blog.constant.SystemUser.SYSTEM_USER_ID;
 
 /**
  * 首页 登录 注册页面Controller
@@ -101,21 +101,28 @@ public class BlogController {
 
     @GetMapping("index")
     public ModelAndView index(){
-        ModelAndView modelAndView = new ModelAndView("index");
-        List<Category> categoryList = categoryService.findByUserId(SystemUser.SYSTEM_USER_ID);
-        List<Article> articleList = articleService.findAll();
-        modelAndView.addObject("categoryList", categoryList);
-        modelAndView.addObject("articleList", articleList);
-        return modelAndView;
+        return query(null);
     }
 
-    @GetMapping("findAllByCategoryId")
-    public String findAllByCategoryId(Map<String, Object> map, @NotBlank Integer categoryId){
-        List<Category> categoryList = categoryService.findAll();
-        List<Article> articleList = articleService.findAllByCategoryId(categoryId);
-        map.put("categoryList", categoryList);
-        map.put("articleList", articleList);
-        return "index";
+    @GetMapping("query/{categoryId}")
+    public ModelAndView query(@PathVariable Integer categoryId){
+        ModelAndView modelAndView = new ModelAndView("index");
+        Map<Category, Integer> categoryMap = new HashMap<>();
+        List<Category> categoryList = categoryService.findByUserId(SYSTEM_USER_ID);
+        if(null == categoryList || categoryList.size() <= 0) return modelAndView;
+        categoryList.stream().forEach(category -> {
+            Article article = new Article();
+            article.setCategoryId(category.getId());
+            List<Article> list = articleService.query(article);
+            categoryMap.put(category, list.size());
+        });
+        Article article = new Article();
+        article.setCategoryId(categoryId);
+        List<Article> articleList = articleService.query(article);
+        modelAndView.addObject("categoryMap", categoryMap);
+        modelAndView.addObject("articleList", articleList);
+        modelAndView.addObject("categoryId", categoryId);
+        return modelAndView;
     }
 
 }
