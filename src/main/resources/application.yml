@@ -11,6 +11,6 @@ spring:
       hibernate:
         ddl-auto: update
       show-sql: true
-    http:
-        encoding:
-          charset: utf-8
+    thymeleaf:
+      mode: HTML5
+      cache: false

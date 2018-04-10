@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorator="layout/layout">
+<style>
+    .label{
+        display: inline-block;
+    }
+    .media{
+        padding-top:20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-radius: 5px;
+    }
+    .media:hover{
+        box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.2);
+    }
+    .sidebar{
+        background-color: #ddddff;
+        font-weight: bold;
+    }
+</style>
+<body>
+<div class="container-fluid" layout:fragment="content">
+    <div class="col-xs-2">
+        <div class="list-group">
+            <a href="#" class="list-group-item active">文章分类</a>
+                <div class="alert alert-info">这里空空如也</div>
+                <a href="/blog/query/${key.id}" class="list-group-item left" id="${key.id}">${key.name} <span class="badge badge-info"></span></a>
+        </div>
+    </div>
+    <div class="col-xs-8">
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img src="/image/desc_1.png" style="border-radius: 10px">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">
+                    <strong><a href="/blog/article/detail/${item.id!''}">${item.title!''}</a></strong> &emsp;
+                    <small><a href="#"><span class="glyphicon glyphicon-th-list"></span> ${item.categoryName}</a></small>
+                    <small style="float: right;"><span class="glyphicon glyphicon-time">${item.createTime}</span></small>
+                </h4>
+                <p style="padding-top: 10px; padding-bottom: 20px">${item.description}</p>
+                <p style="float: right">
+                    <span class="glyphicon glyphicon-pencil">${item.author!''}</span>&emsp;
+                    <span class="glyphicon glyphicon-eye-open">${item.hits!'0'}</span>&emsp;
+                    <span class="glyphicon glyphicon-thumbs-up">${item.hits!'0'}</span>&emsp;
+                    <span class="glyphicon glyphicon-comment">${item.hits!'0'}</span>
+                </p>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    $(function () {
+        if(true){
+            $("#left_1").addClass("sidebar");
+        }
+    });
+</script>
+</html>
