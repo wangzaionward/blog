@@ -1,5 +1,3 @@
-<#import "layout/myLayout.html" as myLayout>
-<@myLayout.myLayout>
 <style>
     .list-inline li{
         text-align: center
@@ -22,7 +20,6 @@
         <div class="thumbnail">
             <img src="/image/desc_1.png" alt="icon" style="border-radius: 100px;width: 100px; height: 100px;">
             <div class="caption" style="text-align: center">
-                <h3>${Session["user"].username}</h3>
             </div>
             <div style="text-align: center">
                 <label class="label label-success">博客狂人</label>
@@ -57,7 +54,6 @@
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading">用户名</h4>
-                        ${Session["user"].username}
                         <hr>
                     </div>
                     <div class="media-right">
@@ -72,7 +68,6 @@
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading">昵称</h4>
-                        ${Session["user"].nickname!"未设置"}
                         <hr>
                     </div>
                     <div class="media-right">
@@ -87,7 +82,6 @@
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading">手机号</h4>
-                        ${Session["user"].phone}
                         <hr>
                     </div>
                     <div class="media-right">
@@ -102,7 +96,6 @@
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading">邮箱</h4>
-                        ${Session["user"].email}
                         <hr>
                     </div>
                     <div class="media-right">
@@ -117,7 +110,6 @@
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading">个性签名</h4>
-                        ${Session["user"].motto!"未设置"}
                         <hr>
                     </div>
                     <div class="media-right">
@@ -129,11 +121,11 @@
                 <label>请输入手机号</label>
                 <div class="input-group" style="width: 50%">
                     <input type="text" class="form-control" placeholder="手机号">
-                    <span class="input-group-addon" id="basic-addon2">获取验证码</span>
+                    <span class="input-group-addon" id="">获取验证码</span>
                 </div>
                 <br>
                 <div class="form-group" style="width: 50%">
-                    <label for="exampleInputEmail1">请输入验证码</label>
+                    <label>请输入验证码</label>
                     <input type="email" class="form-control" placeholder="验证码">
                 </div>
                 <button class="btn btn-primary">确定</button>
@@ -146,18 +138,18 @@
                 </div>
                 <br>
                 <div class="form-group" style="width: 50%">
-                    <label for="exampleInputEmail1">请输入验证码</label>
+                    <label>请输入验证码</label>
                     <input type="email" class="form-control" placeholder="验证码">
                 </div>
                 <button class="btn btn-primary">确定</button>
             </div>
             <div class="tab-pane fade" id="modifyPwd">
                 <div class="form-group" style="width: 50%">
-                    <label for="exampleInputEmail1">请输入原密码</label>
+                    <label>请输入原密码</label>
                     <input type="email" class="form-control" placeholder="原密码">
                 </div>
                 <div class="form-group" style="width: 50%">
-                    <label for="exampleInputEmail1">请输入新密码</label>
+                    <label>请输入新密码</label>
                     <input type="email" class="form-control" placeholder="新密码">
                 </div>
                 <button class="btn btn-primary">确定</button>
@@ -168,4 +160,3 @@
         </div>
     </div>
 </div>
-</@myLayout.myLayout>

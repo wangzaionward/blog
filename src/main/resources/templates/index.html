@@ -1,66 +1,62 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.w3.org/1999/xhtml"
-      layout:decorator="layout/layout">
-<style>
-    .label{
-        display: inline-block;
-    }
-    .media{
-        padding-top:20px;
-        padding-left: 20px;
-        padding-right: 20px;
-        border-radius: 5px;
-    }
-    .media:hover{
-        box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.2);
-    }
-    .sidebar{
-        background-color: #ddddff;
-        font-weight: bold;
-    }
-</style>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{/layout/common :: head(~{::title})}">
+    <title>首页</title>
+    <style>
+        .list-click{
+            background-color: #ddddff;
+            font-weight: bold;
+        }
+    </style>
+</head>
 <body>
-<div class="container-fluid" layout:fragment="content">
+<div class="main">
+<div th:insert="~{/layout/header :: header}"></div>
+<div class="container-fluid margin-bottom-50px">
     <div class="col-xs-2">
         <div class="list-group">
             <a href="#" class="list-group-item active">文章分类</a>
-                <div class="alert alert-info">这里空空如也</div>
-                <a href="/blog/query/${key.id}" class="list-group-item left" id="${key.id}">${key.name} <span class="badge badge-info"></span></a>
+            <div th:each="category: ${categoryList}">
+                <a th:id="${categoryId}" href="#" th:href="@{'/blog/query/' + ${category.getId()}}" class="list-group-item" th:text="${category.getName()}">暂无分类</a>
+            </div>
         </div>
     </div>
     <div class="col-xs-8">
-        <div class="media">
-            <div class="media-left">
-                <a href="#">
-                    <img src="/image/desc_1.png" style="border-radius: 10px">
-                </a>
+        <div th:each="article: ${articleList}">
+            <div class="media" style="margin-bottom: 30px;">
+                <div class="media-left">
+                    <a href="#">
+                        <img src="/image/desc_1.png" style="border-radius: 10px">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        <strong><a href="/blog/article/detail/" th:text="${article.getTitle()}"></a></strong> &emsp;
+                        <small>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-th-list" th:text="${article.getCategoryName()}"></span>
+                            </a>
+                        </small>
+                        <small style="float: right;" th:text="${#calendars.format(article.getCreateTime(),'yyyy-MM-dd')}"></small>
+                    </h4>
+                    <p th:text="${article.getDescription()}"></p>
+                    <p style="float: right">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-eye-open" th:text="${article.getHits()}"></span> &nbsp;
+                        </a>
+                        <a href="#"><span class="glyphicon glyphicon-thumbs-up" th:text="${article.getHits()}">291</span></a>
+                    </p>
+                </div>
             </div>
-            <div class="media-body">
-                <h4 class="media-heading">
-                    <strong><a href="/blog/article/detail/${item.id!''}">${item.title!''}</a></strong> &emsp;
-                    <small><a href="#"><span class="glyphicon glyphicon-th-list"></span> ${item.categoryName}</a></small>
-                    <small style="float: right;"><span class="glyphicon glyphicon-time">${item.createTime}</span></small>
-                </h4>
-                <p style="padding-top: 10px; padding-bottom: 20px">${item.description}</p>
-                <p style="float: right">
-                    <span class="glyphicon glyphicon-pencil">${item.author!''}</span>&emsp;
-                    <span class="glyphicon glyphicon-eye-open">${item.hits!'0'}</span>&emsp;
-                    <span class="glyphicon glyphicon-thumbs-up">${item.hits!'0'}</span>&emsp;
-                    <span class="glyphicon glyphicon-comment">${item.hits!'0'}</span>
-                </p>
-            </div>
-            <hr>
         </div>
     </div>
 </div>
+<div th:insert="~{/layout/footer :: footer}"></div>
+</div>
 </body>
-
 <script>
     $(function () {
-        if(true){
-            $("#left_1").addClass("sidebar");
-        }
+        $("#" + ${categoryId}).addClass("list-click");
+        $("#" + ${categoryId}).siblings().removeClass("list-click");
     });
 </script>
 </html>

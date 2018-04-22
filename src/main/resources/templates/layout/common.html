@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <title th:replace="${title}">Blog</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+
+    <!--通用js和css-->
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        html, body{
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        a:hover{
+            text-decoration: none;
+        }
+        .margin-bottom-50px{
+            padding-bottom: 150px;
+        }
+        footer{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            background-color: black;
+            height: 60px;
+            line-height: 50px;
+        }
+        .main{
+            min-height: 100%;
+            height: auto !important;
+            height: 100%;
+            position: relative;
+        }
+    </style>
+</head>
+</html>

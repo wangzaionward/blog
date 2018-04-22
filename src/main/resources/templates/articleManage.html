@@ -1,5 +1,3 @@
-<#import "layout/myLayout.html" as myLayout>
-<@myLayout.myLayout>
 <style>
     .list-inline li{
         text-align: center
@@ -36,10 +34,7 @@
     </div>
     <div class="col-xs-9">
         <div id="right_1">
-            <#if articleList ? size <= 0>
                 <div class="alert alert-success">您还没有写过文章</div>
-            <#else>
-                <#list articleList as item>
                     <div class="media">
                         <div class="media-left">
                             <a href="#">
@@ -60,8 +55,6 @@
                         </div>
                         <hr>
                     </div>
-                </#list>
-            </#if>
         </div>
         <div id="right_2" style="display: none">
             <label>添加分类</label>
@@ -76,12 +69,10 @@
             <br><br>
             <label>已有分类</label>
             <ul class="list-group">
-                <#list categoryList as item>
                     <li class="list-group-item" style="width: 50%;">
                         <a href="/blog/findAllByCategoryId?categoryId=${item.id}">${item.name!''}</span></a>
                         <a href="#" style="float: right" class="close"><span>&times;</span></a>
                     </li>
-                </#list>
             </ul>
         </div>
         <div id="right_3" style="display: none">
@@ -93,9 +84,7 @@
                 <div class="col-md-6">
                     <label>请输入文章分类</label>
                     <select class="form-control" style="width: 50%">
-                        <#list categoryList as item>
                             <option>${item.name}</option>
-                        </#list>
                     </select>
                 </div>
             </div>
@@ -176,4 +165,3 @@
     });
 </script>
 </div>
-</@myLayout.myLayout>

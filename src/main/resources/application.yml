@@ -12,5 +12,6 @@ spring:
         ddl-auto: update
       show-sql: true
     thymeleaf:
-      mode: HTML5
       cache: false
+      encoding: UTF-8
+      mode: HTML5
