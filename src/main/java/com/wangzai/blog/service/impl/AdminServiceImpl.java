@@ -6,6 +6,8 @@ import com.wangzai.blog.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService{
@@ -18,4 +20,18 @@ public class AdminServiceImpl implements AdminService{
         return adminDao.findByUsername(username);
     }
 
+    @Override
+    public <S extends Admin> S save(S s) {
+        return adminDao.save(s);
+    }
+
+    @Override
+    public void delete(Admin admin) {
+        adminDao.delete(admin);
+    }
+
+    @Override
+    public Admin findById(Integer integer) {
+        return adminDao.findById(integer).orElse(null);
+    }
 }

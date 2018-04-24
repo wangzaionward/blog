@@ -1,49 +1,42 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:insert="~{/layout/common :: head(~{::title})}">
+<head th:insert="~{/layout/common :: head(~{::title},~{::link})}">
     <title>首页</title>
-    <style>
-        .list-click{
-            background-color: #ddddff;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
 <div class="main">
 <div th:insert="~{/layout/header :: header}"></div>
 <div class="container-fluid margin-bottom-50px">
     <div class="col-xs-2">
-        <div class="list-group">
-            <a href="#" class="list-group-item active">文章分类</a>
-            <div th:each="category: ${categoryList}">
-                <a th:id="${categoryId}" href="#" th:href="@{'/blog/query/' + ${category.getId()}}" class="list-group-item" th:text="${category.getName()}">暂无分类</a>
-            </div>
-        </div>
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a href="#">文章分类</a></li>
+            <li th:each="category: ${categoryList}"><a th:id="${categoryId}" th:href="@{'/blog/query/' + ${category.getId()}}" th:text="${category.getName()}">暂无分类</a></li>
+        </ul>
     </div>
     <div class="col-xs-8">
+        <div class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+            上次阅读到 : <a href="#" class="alert-link">这里</a>
+        </div>
         <div th:each="article: ${articleList}">
-            <div class="media" style="margin-bottom: 30px;">
+            <div class="media">
                 <div class="media-left">
                     <a href="#">
-                        <img src="/image/desc_1.png" style="border-radius: 10px">
+                        <img src="/image/desc_1.png" style="border-radius: 5px">
                     </a>
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading">
                         <strong><a href="/blog/article/detail/" th:text="${article.getTitle()}"></a></strong> &emsp;
                         <small>
-                            <a href="#">
-                                <span class="glyphicon glyphicon-th-list" th:text="${article.getCategoryName()}"></span>
-                            </a>
+                            <a href="#">分类 : <span th:text="${article.getCategoryName()}"></span></a>
                         </small>
                         <small style="float: right;" th:text="${#calendars.format(article.getCreateTime(),'yyyy-MM-dd')}"></small>
                     </h4>
                     <p th:text="${article.getDescription()}"></p>
                     <p style="float: right">
-                        <a href="#">
-                            <span class="glyphicon glyphicon-eye-open" th:text="${article.getHits()}"></span> &nbsp;
-                        </a>
-                        <a href="#"><span class="glyphicon glyphicon-thumbs-up" th:text="${article.getHits()}">291</span></a>
+                        <a href="#">阅读 : <span th:text="${article.getHits()}"></span> &nbsp;</a>
+                        <a href="#">喜欢 : <span th:text="${article.getHits()}">291</span></a>
                     </p>
                 </div>
             </div>
@@ -53,10 +46,4 @@
 <div th:insert="~{/layout/footer :: footer}"></div>
 </div>
 </body>
-<script>
-    $(function () {
-        $("#" + ${categoryId}).addClass("list-click");
-        $("#" + ${categoryId}).siblings().removeClass("list-click");
-    });
-</script>
 </html>
