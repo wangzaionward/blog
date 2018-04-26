@@ -20,7 +20,7 @@ public interface ArticleService {
      * @param categoryId
      * @return
      */
-    Page<Article> findByCategoryId(Integer categoryId, Pageable pageable);
+    List<Article> findByCategoryIdPageable(Integer categoryId, Integer pageNum, Integer pageSize);
 
     List<Article> findAll();
 
@@ -28,6 +28,7 @@ public interface ArticleService {
 
     Article save(Article article);
 
-    List<Article> query(Article article);
+    Page<Article> query(Article article, Integer pageNum, Integer pageSize);
+
 
 }

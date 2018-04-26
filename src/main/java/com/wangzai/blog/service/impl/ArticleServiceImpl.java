@@ -6,7 +6,9 @@ import com.wangzai.blog.service.ArticleService;
 import com.wangzai.blog.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
@@ -30,8 +32,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Page<Article> findByCategoryId(Integer categoryId, Pageable pageable) {
-        return articleDao.findByCategoryId(categoryId, pageable);
+    public List<Article> findByCategoryIdPageable(Integer categoryId, Integer pageNum, Integer pageSize) {
+        return articleDao.findAllByCategoryId(categoryId);
     }
 
     @Override
@@ -52,9 +54,10 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> query(Article article){
-        if(null == article) return articleDao.findAll();
-        List<Article> articleList = articleDao.findAll(new Specification<Article>() {
+    public Page<Article> query(Article article, Integer pageNum, Integer pageSize){
+        Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.by("createTime"));
+        if(null == article) return articleDao.findAll(pageable);
+        Specification<Article> specification = new Specification<Article>() {
             @Override
             public Predicate toPredicate(Root<Article> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> list = new ArrayList<>();
@@ -85,7 +88,8 @@ public class ArticleServiceImpl implements ArticleService {
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.and(list.toArray(p));
             }
-        });
-        return articleList;
+        };
+        Page<Article> articlePage = articleDao.findAll(specification, pageable);
+        return articlePage;
     }
 }

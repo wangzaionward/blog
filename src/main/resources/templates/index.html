@@ -10,40 +10,59 @@
     <div class="col-xs-2">
         <ul class="nav nav-pills nav-stacked">
             <li class="active"><a href="#">文章分类</a></li>
-            <li th:each="category: ${categoryList}"><a th:id="${categoryId}" th:href="@{'/blog/query/' + ${category.getId()}}" th:text="${category.getName()}">暂无分类</a></li>
+            <li th:each="category: ${categoryList}"><a th:href="@{'/blog/article/' + ${category.getId()}}" th:text="${category.getName()}">暂无分类</a></li>
         </ul>
     </div>
     <div class="col-xs-8">
-        <div class="alert alert-info alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-            上次阅读到 : <a href="#" class="alert-link">这里</a>
-        </div>
-        <div th:each="article: ${articleList}">
-            <div class="media">
-                <div class="media-left">
-                    <a href="#">
-                        <img src="/image/desc_1.png" style="border-radius: 5px">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading">
-                        <strong><a href="/blog/article/detail/" th:text="${article.getTitle()}"></a></strong> &emsp;
-                        <small>
-                            <a href="#">分类 : <span th:text="${article.getCategoryName()}"></span></a>
-                        </small>
-                        <small style="float: right;" th:text="${#calendars.format(article.getCreateTime(),'yyyy-MM-dd')}"></small>
-                    </h4>
-                    <p th:text="${article.getDescription()}"></p>
-                    <p style="float: right">
-                        <a href="#">阅读 : <span th:text="${article.getHits()}"></span> &nbsp;</a>
-                        <a href="#">喜欢 : <span th:text="${article.getHits()}">291</span></a>
-                    </p>
-                </div>
+        <th:block th:if="${#lists.isEmpty(articleList)}">
+            <div class="no-content">
+                <h3>暂无相关内容~</h3>
             </div>
-        </div>
+        </th:block>
+        <th:block th:each="article: ${articleList}">
+            <th:block th:if="${not #lists.isEmpty(articleList)}">
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img src="/image/desc_1.png" style="border-radius: 5px">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">
+                            <strong><a href="/blog/article/detail/" th:text="${article.getTitle()}"></a></strong> &emsp;
+                            <small>
+                                <a href="#">分类 : <span th:text="${article.getCategoryName()}"></span></a>
+                            </small>
+                            <small style="float: right;" th:text="${#calendars.format(article.getCreateTime(),'yyyy-MM-dd')}"></small>
+                        </h4>
+                        <p th:text="${article.getDescription()}"></p>
+                        <p style="float: right">
+                            <a href="#">阅读 : <span th:text="${article.getHits()}"></span> &nbsp;</a>
+                            <a href="#">喜欢 : <span th:text="${article.getHits()}">291</span></a>
+                        </p>
+                    </div>
+                </div>
+            </th:block>
+        </th:block>
+        <nav aria-label="Page navigation example" style="text-align: right">
+            <ul class="pagination">
+                <li class="page-item" data-th-classappend="*{first} ? 'disabled' : ''">
+                    <a class="page-link" href="javascript:void(0);" data-th-attr="pageIndex=${articleList}">上一页</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">下一页</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 <div th:insert="~{/layout/footer :: footer}"></div>
 </div>
+<script>
+    $(".pagination").pagination();
+</script>
 </body>
 </html>
