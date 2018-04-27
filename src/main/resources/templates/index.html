@@ -9,8 +9,8 @@
 <div class="container-fluid margin-bottom-50px">
     <div class="col-xs-2">
         <ul class="nav nav-pills nav-stacked">
-            <li class="active"><a href="#">文章分类</a></li>
-            <li th:each="category: ${categoryList}"><a th:href="@{'/blog/article/' + ${category.getId()}}" th:text="${category.getName()}">暂无分类</a></li>
+            <li class="active"><a href="javascript:void(0);">文章分类</a></li>
+            <li th:each="category: ${categoryList}"><a th:href="@{/blog/article(categoryId=${category.getId()}, pageNum=1)}" th:text="${category.getName()}" th:id="category+${category.getId()}">暂无分类</a></li>
         </ul>
     </div>
     <div class="col-xs-8">
@@ -46,14 +46,17 @@
         </th:block>
         <nav aria-label="Page navigation example" style="text-align: right">
             <ul class="pagination">
-                <li class="page-item" data-th-classappend="*{first} ? 'disabled' : ''">
-                    <a class="page-link" href="javascript:void(0);" data-th-attr="pageIndex=${articleList}">上一页</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item">
-                    <a class="page-link" href="#">下一页</a>
+                    <a th:href="@{/blog/article(categoryId=${categoryId}, pageNum=1)}" data-th-classappend="${pageNum}==1 ? 'btn disabled' : ''">首页</a>
+                </li>
+                <li class="page-item">
+                    <a th:href="@{/blog/article(categoryId=${categoryId}, pageNum=${pageNum}-1)}" data-th-classappend="${pageNum}==1 ? 'btn disabled' : ''">上一页</a>
+                </li>
+                <li class="page-item">
+                    <a th:href="@{/blog/article(categoryId=${categoryId}, pageNum=${pageNum}+1)}" data-th-classappend="${pageNum}==${totalPage} ? 'btn disabled' : ''">下一页</a>
+                </li>
+                <li class="page-item">
+                    <a th:href="@{/blog/article(categoryId=${categoryId}, pageNum=${totalPage})}" data-th-classappend="${pageNum}==${totalPage} ? 'btn disabled' : ''">尾页</a>
                 </li>
             </ul>
         </nav>
@@ -61,8 +64,16 @@
 </div>
 <div th:insert="~{/layout/footer :: footer}"></div>
 </div>
+<style>
+    .sidebar{
+        background-color: #e6e9ed;
+    }
+</style>
 <script>
-    $(".pagination").pagination();
+    $(function () {
+        var categoryId = [[${categoryId}]];
+        $("#category" + categoryId).addClass("sidebar");
+    });
 </script>
 </body>
 </html>
