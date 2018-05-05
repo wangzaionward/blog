@@ -15,8 +15,8 @@
     </div>
     <div class="col-xs-8">
         <th:block th:if="${#lists.isEmpty(articleList)}">
-            <div class="no-content">
-                <h3>暂无相关内容~</h3>
+            <div class="no_content">
+                <h3>暂无相关内容</h3>
             </div>
         </th:block>
         <th:block th:each="article: ${articleList}">
@@ -44,22 +44,24 @@
                 </div>
             </th:block>
         </th:block>
-        <nav aria-label="Page navigation example" style="text-align: right">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a th:href="@{/blog/article(categoryId=${categoryId}, pageNum=1)}" data-th-classappend="${pageNum}==1 ? 'btn disabled' : ''">首页</a>
-                </li>
-                <li class="page-item">
-                    <a th:href="@{/blog/article(categoryId=${categoryId}, pageNum=${pageNum}-1)}" data-th-classappend="${pageNum}==1 ? 'btn disabled' : ''">上一页</a>
-                </li>
-                <li class="page-item">
-                    <a th:href="@{/blog/article(categoryId=${categoryId}, pageNum=${pageNum}+1)}" data-th-classappend="${pageNum}==${totalPage} ? 'btn disabled' : ''">下一页</a>
-                </li>
-                <li class="page-item">
-                    <a th:href="@{/blog/article(categoryId=${categoryId}, pageNum=${totalPage})}" data-th-classappend="${pageNum}==${totalPage} ? 'btn disabled' : ''">尾页</a>
-                </li>
-            </ul>
-        </nav>
+        <th:block th:if="${not #lists.isEmpty(articleList)}">
+            <nav aria-label="Page navigation example" style="text-align: right">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a th:href="@{/blog/article(categoryId=${categoryId}, pageNum=1)}" data-th-classappend="${pageNum}==1 ? 'btn disabled' : ''">首页</a>
+                    </li>
+                    <li class="page-item">
+                        <a th:href="@{/blog/article(categoryId=${categoryId}, pageNum=${pageNum}-1)}" data-th-classappend="${pageNum}==1 ? 'btn disabled' : ''">上一页</a>
+                    </li>
+                    <li class="page-item">
+                        <a th:href="@{/blog/article(categoryId=${categoryId}, pageNum=${pageNum}+1)}" data-th-classappend="${pageNum}==${totalPage} ? 'btn disabled' : ''">下一页</a>
+                    </li>
+                    <li class="page-item">
+                        <a th:href="@{/blog/article(categoryId=${categoryId}, pageNum=${totalPage})}" data-th-classappend="${pageNum}==${totalPage} ? 'btn disabled' : ''">尾页</a>
+                    </li>
+                </ul>
+            </nav>
+        </th:block>
     </div>
 </div>
 <div th:insert="~{/layout/footer :: footer}"></div>
