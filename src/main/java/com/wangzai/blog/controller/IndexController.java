@@ -38,7 +38,20 @@ public class IndexController {
 
     @GetMapping("/article")
     public ModelAndView query(@RequestParam Integer categoryId, @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum){
-        ModelAndView modelAndView = new ModelAndView("index");
+        return queryMyArticle(categoryId, pageNum, null);
+    }
+
+    @GetMapping("/myArticle")
+    public ModelAndView queryMyArticle(@RequestParam Integer categoryId, @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, @RequestParam Integer userId){
+
+        String viewName;
+        if(null == userId){//首页 所有文章
+            viewName = "index";
+        }else{//我的文章
+            viewName = "articleManage";
+        }
+
+        ModelAndView modelAndView = new ModelAndView(viewName);
         modelAndView.addObject("categoryId", categoryId);
         modelAndView.addObject("pageNum", pageNum);
         List<Category> categories = categoryService.findByUserId(SYSTEM_USER_ID);

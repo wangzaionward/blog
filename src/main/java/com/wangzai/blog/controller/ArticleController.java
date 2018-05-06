@@ -34,20 +34,20 @@ public class ArticleController {
 
     @GetMapping(value = "query/{categoryId}")
     public ModelAndView query(@PathVariable @NotNull Integer categoryId){
-        ModelAndView modelAndView = new ModelAndView("index");
-        List<Article> articleList = articleService.findAllByCategoryId(categoryId);
-        if(null == articleList || articleList.size() <= 0) return modelAndView;
-        List<Article> articleList2 = articleList.stream().sorted(Comparator.comparing(Article::getCreateTime).reversed()).collect(Collectors.toList());
-        List<Article> articleList3 = articleList.stream().sorted(Comparator.comparing(Article::getHits).reversed()).collect(Collectors.toList());
-        List<Article> articleList4 = articleList.stream().sorted(Comparator.comparing(Article::getLike).reversed()).collect(Collectors.toList());
-        List<Article> articleList5 = articleList.stream().sorted(Comparator.comparing(Article::getComments).reversed()).collect(Collectors.toList());
-        modelAndView.addObject("articleList2", articleList2);
-        modelAndView.addObject("articleList2", articleList3);
-        modelAndView.addObject("articleList2", articleList4);
-        modelAndView.addObject("articleList2", articleList5);
-        List<Category> categoryList = categoryService.findByUserId(SystemUser.SYSTEM_USER_ID);
-        modelAndView.addObject("categoryList", categoryList);
-        return modelAndView;
+//        ModelAndView modelAndView = new ModelAndView("index");
+//        List<Article> articleList = articleService.findAllByCategoryId(categoryId);
+//        if(null == articleList || articleList.size() <= 0) return modelAndView;
+//        List<Article> articleList2 = articleList.stream().sorted(Comparator.comparing(Article::getCreateTime).reversed()).collect(Collectors.toList());
+//        List<Article> articleList3 = articleList.stream().sorted(Comparator.comparing(Article::getHits).reversed()).collect(Collectors.toList());
+//        List<Article> articleList4 = articleList.stream().sorted(Comparator.comparing(Article::getLike).reversed()).collect(Collectors.toList());
+//        List<Article> articleList5 = articleList.stream().sorted(Comparator.comparing(Article::getComments).reversed()).collect(Collectors.toList());
+//        modelAndView.addObject("articleList2", articleList2);
+//        modelAndView.addObject("articleList2", articleList3);
+//        modelAndView.addObject("articleList2", articleList4);
+//        modelAndView.addObject("articleList2", articleList5);
+//        List<Category> categoryList = categoryService.findByUserId(SystemUser.SYSTEM_USER_ID);
+//        modelAndView.addObject("categoryList", categoryList);
+        return null;
     }
 
     /**

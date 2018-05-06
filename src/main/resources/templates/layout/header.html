@@ -16,8 +16,8 @@
                             <span th:text="${session.user.getUsername()}"></span> <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="/blog/user/userManage"><span class="glyphicon glyphicon-user"></span>&emsp;个人中心</a></li>
-                            <li><a href="/blog/article/articleManage"><span class="glyphicon glyphicon-pencil"></span>&emsp;写文章</a></li>
+                            <li><a href="/blog/user"><span class="glyphicon glyphicon-user"></span>&emsp;个人中心</a></li>
+                            <li><a th:href="@{/blog/article(categoryId=${category.getId()}, pageNum=1)}"><span class="glyphicon glyphicon-pencil"></span>&emsp;写文章</a></li>
                             <li class="divider"></li>
                             <li><a href="/blog/logout"><span class="glyphicon glyphicon-log-out"></span>&emsp;退出</a></li>
                         </ul>
