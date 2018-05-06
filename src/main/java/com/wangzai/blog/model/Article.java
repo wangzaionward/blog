@@ -52,6 +52,13 @@ public class Article {
 
     private Integer comments;//评论数
 
+    public Article() {
+    }
+
+    public Article(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public Integer getId() {
         return id;
     }

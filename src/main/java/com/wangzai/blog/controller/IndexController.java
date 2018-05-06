@@ -41,18 +41,16 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("categoryId", categoryId);
         modelAndView.addObject("pageNum", pageNum);
-        List<Category> categoryList = categoryService.findByUserId(SYSTEM_USER_ID);
-        if(null == categoryList || categoryList.size() <= 0) return modelAndView;
-        modelAndView.addObject("categoryList", categoryList);
-        Article article = new Article();
-        article.setCategoryId(categoryId);
-        Page<Article> articlePage = articleService.query(article, pageNum, PageHelper.PAGE_SIZE_DEFAULT);
-        List<Article> articleList = articlePage.getContent();
-        if(null == articleList || articleList.size() <= 0) return modelAndView;
-        modelAndView.addObject("totalRecords", articlePage.getTotalElements());
-        modelAndView.addObject("pageSize", PageHelper.PAGE_SIZE_DEFAULT);
-        modelAndView.addObject("totalPage",articlePage.getTotalPages());
-        modelAndView.addObject("articleList", articleList);
+        List<Category> categories = categoryService.findByUserId(SYSTEM_USER_ID);
+        if(null == categories || categories.size() <= 0) return modelAndView;
+        modelAndView.addObject("categories", categories);
+
+        Article article = new Article(categoryId);
+        Page<Article> pageInfo = articleService.query(article, pageNum, PageHelper.PAGE_SIZE_DEFAULT);
+        List<Article> articles = pageInfo.getContent();
+        if(null == articles || articles.size() <= 0) return modelAndView;
+        modelAndView.addObject("articles", articles);
+        modelAndView.addObject("pageInfo", pageInfo);
         return modelAndView;
     }
 
