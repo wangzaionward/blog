@@ -59,6 +59,11 @@ public class Article {
         this.categoryId = categoryId;
     }
 
+    public Article(Integer userId, Integer categoryId) {
+        this.userId = userId;
+        this.categoryId = categoryId;
+    }
+
     public Integer getId() {
         return id;
     }

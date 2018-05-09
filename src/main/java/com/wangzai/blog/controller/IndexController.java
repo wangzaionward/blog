@@ -33,32 +33,33 @@ public class IndexController {
 
     @GetMapping("index")
     public ModelAndView index(){
-        return query(null, PageHelper.PAGE_NUM_DEFAULT);
+        return article(null, PageHelper.PAGE_NUM_DEFAULT);
     }
 
     @GetMapping("/article")
-    public ModelAndView query(@RequestParam Integer categoryId, @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum){
-        return queryMyArticle(categoryId, pageNum, null);
+    public ModelAndView article(@RequestParam Integer categoryId, @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum){
+        return myArticle(categoryId, pageNum, null);
     }
 
     @GetMapping("/myArticle")
-    public ModelAndView queryMyArticle(@RequestParam Integer categoryId, @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, @RequestParam Integer userId){
+    public ModelAndView myArticle(@RequestParam Integer categoryId, @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, @RequestParam Integer userId){
 
         String viewName;
+        Article article;
         if(null == userId){//首页 所有文章
+            article = new Article(categoryId);
             viewName = "index";
         }else{//我的文章
-            viewName = "articleManage";
+            article = new Article(userId, categoryId);
+            viewName = "article";
         }
 
         ModelAndView modelAndView = new ModelAndView(viewName);
         modelAndView.addObject("categoryId", categoryId);
-        modelAndView.addObject("pageNum", pageNum);
         List<Category> categories = categoryService.findByUserId(SYSTEM_USER_ID);
         if(null == categories || categories.size() <= 0) return modelAndView;
         modelAndView.addObject("categories", categories);
 
-        Article article = new Article(categoryId);
         Page<Article> pageInfo = articleService.query(article, pageNum, PageHelper.PAGE_SIZE_DEFAULT);
         List<Article> articles = pageInfo.getContent();
         if(null == articles || articles.size() <= 0) return modelAndView;
