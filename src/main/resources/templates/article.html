@@ -81,9 +81,9 @@
                 <button class="btn" onclick="history.go(-1)">返回</button>
                 <br><br>
                 <label>已有分类</label>
-                <ul class="list-group">
+                <ul class="list-group" th:each="category: ${categories}">
                         <li class="list-group-item" style="width: 50%;">
-                            <a href="/blog/findAllByCategoryId?categoryId=${item.id}">${item.name!''}</span></a>
+                            <a href="/blog/findAllByCategoryId?categoryId=${item.id}" th:text="${category.getName()}"></span></a>
                             <a href="#" style="float: right" class="close"><span>&times;</span></a>
                         </li>
                 </ul>

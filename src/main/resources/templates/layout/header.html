@@ -17,7 +17,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="/blog/user"><span class="glyphicon glyphicon-user"></span>&emsp;个人中心</a></li>
-                            <li><a th:href="@{/blog/myArticle(categoryId=${categoryId}, pageNum=1, userId=${session.user.getId()})}"><span class="glyphicon glyphicon-pencil"></span>&emsp;写文章</a></li>
+                            <li><a th:href="@{/blog/myArticle(categoryId='', pageNum=1, userId=${session.user.getId()})}"><span class="glyphicon glyphicon-pencil"></span>&emsp;写文章</a></li>
                             <li class="divider"></li>
                             <li><a href="/blog/logout"><span class="glyphicon glyphicon-log-out"></span>&emsp;退出</a></li>
                         </ul>

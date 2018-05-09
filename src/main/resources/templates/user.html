@@ -7,25 +7,7 @@
 <div class="main">
     <div th:insert="~{/layout/header :: header}"></div>
     <div class="container">
-        <div class="col-xs-3">
-            <div class="thumbnail" style="padding: 30px;">
-                <img src="/image/desc_1.png" alt="icon" style="border-radius: 100px;width: 100px; height: 100px;">
-                <div class="caption" style="text-align: center">
-                </div>
-                <div style="text-align: center">
-                    <label class="label label-success">博客狂人</label>
-                    <label class="label label-success">未来之星</label>
-                </div>
-                <hr style="width: 90%">
-                <ul class="list-inline" style="text-align: center">
-                    <li><a href="#"><p>文章</p><p>261</p></a></li>
-                    <li><a href="#"><p>喜欢</p><p>817</p></a></li>
-                    <li><a href="#"><p>评论</p><p>261</p></a></li>
-                    <li><a href="#"><p>新消息</p><p>261</p></a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-xs-8">
+        <div class="col-xs-8 col-sm-offset-1" style="border: 1px solid #ddd; box-shadow:0px 0px  10px 5px #ddd;margin-bottom: 150px; padding: 20px">
             <ul id="myTab" class="nav nav-tabs" style="margin-bottom: 20px;">
                 <li class="active">
                     <a href="#basicInfo" data-toggle="tab">基本资料</a>
@@ -145,6 +127,20 @@
                 <div class="tab-pane fade" id="other">
                     暂无
                 </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div style="padding: 20px;">
+                <ul class="list-inline">
+                    <li><img src="/image/desc_1.png" alt="icon" style="border-radius: 100px;width: 100px; height: 100px;"></li>
+                    <li><h3 th:text="${session.user.getUsername()}"></h3></li>
+                </ul>
+                <hr style="width: 100%">
+                <ul class="list-inline">
+                    <li><a href="#"><p>文章</p><p>261</p></a></li>
+                    <li><a href="#"><p>喜欢</p><p>817</p></a></li>
+                    <li><a href="#"><p>评论</p><p>261</p></a></li>
+                </ul>
             </div>
         </div>
     </div>
