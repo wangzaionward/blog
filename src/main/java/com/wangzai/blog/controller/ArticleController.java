@@ -1,13 +1,17 @@
 package com.wangzai.blog.controller;
 
 import com.wangzai.blog.Exception.SystemException;
+import com.wangzai.blog.constant.CurrentUser;
+import com.wangzai.blog.constant.PageInfo;
 import com.wangzai.blog.model.Article;
 import com.wangzai.blog.model.Category;
 import com.wangzai.blog.model.User;
 import com.wangzai.blog.service.ArticleService;
 import com.wangzai.blog.service.CategoryService;
 import com.wangzai.blog.utils.UserUtil;
+import com.wangzai.blog.vo.Statistics;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,6 +33,26 @@ public class ArticleController {
     @Autowired
     private CategoryService categoryService;
 
+    @GetMapping("/myArticles")
+    public ModelAndView myArticles(@RequestParam Integer categoryId, @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, HttpSession session){
+
+        ModelAndView modelAndView = new ModelAndView("article");
+        User user = (User)session.getAttribute(CurrentUser.CURRENT_USER);
+        if(null == user) return modelAndView;
+        Article article = new Article(user.getId(), categoryId);
+
+        List<Category> categories = categoryService.findByUserId(user.getId());
+        if(null == categories || categories.size() <= 0) return modelAndView;
+        modelAndView.addObject("categories", categories);
+
+        Page<Article> pageInfo = articleService.query(article, pageNum, PageInfo.PAGE_SIZE_DEFAULT);
+        List<Article> articles = pageInfo.getContent();
+        if(null == articles || articles.size() <= 0) return modelAndView;
+        modelAndView.addObject("articles", articles);
+        modelAndView.addObject("pageInfo", pageInfo);
+        return modelAndView;
+    }
+
     /**
      * 根据id查询文章详情
      * @param id
@@ -41,6 +65,17 @@ public class ArticleController {
         Article article = articleService.findOne(id);
         if(null == article) throw new SystemException("文章不存在");
         modelAndView.addObject("article", article);
+        Integer userId = article.getUserId();
+        List<Article> articles = articleService.findAllByUserId(userId);
+        if(null != articles && articles.size() > 0){
+            Statistics statistics = new Statistics();
+            Integer hits = articles.stream().mapToInt(Article :: getHits).sum();
+            Integer likes = articles.stream().mapToInt(Article :: getLike).sum();
+            statistics.setArticles(articles.size());
+            statistics.setHits(hits);
+            statistics.setLikes(likes);
+            modelAndView.addObject("statistics", statistics);
+        }
         return modelAndView;
     }
 

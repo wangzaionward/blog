@@ -25,9 +25,9 @@
                 </ul>
                 <hr style="width: 100%">
                 <ul class="list-inline">
-                    <li><a href="#"><p>文章</p><p>261</p></a></li>
-                    <li><a href="#"><p>喜欢</p><p>817</p></a></li>
-                    <li><a href="#"><p>评论</p><p>261</p></a></li>
+                    <li><a href="#"><p>文章数</p><p th:text="${statistics.getArticles()}">0</p></a></li>
+                    <li><a href="#"><p>获得喜欢</p><p th:text="${statistics.getLikes()}">0</p></a></li>
+                    <li><a href="#"><p>阅读量</p><p th:text="${statistics.getHits()}">0</p></a></li>
                 </ul>
             </div>
         </div>

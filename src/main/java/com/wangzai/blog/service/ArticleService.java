@@ -1,6 +1,7 @@
 package com.wangzai.blog.service;
 
 import com.wangzai.blog.model.Article;
+import com.wangzai.blog.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -30,5 +31,6 @@ public interface ArticleService {
 
     Page<Article> query(Article article, Integer pageNum, Integer pageSize);
 
+    List<Article> findAllByUserId(Integer userId);
 
 }

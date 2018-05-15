@@ -92,4 +92,10 @@ public class ArticleServiceImpl implements ArticleService {
         Page<Article> articlePage = articleDao.findAll(specification, pageable);
         return articlePage;
     }
+
+    public List<Article> findAllByUserId(Integer userId){
+        List<Article> articles = articleDao.findAllByUserId(userId);
+        if(null != articles && articles.size() > 0) return articles;
+        return null;
+    }
 }

@@ -31,4 +31,6 @@ public interface ArticleDao extends PagingAndSortingRepository<Article, Integer>
 
     Article save(Article article);
 
+    List<Article> findAllByUserId(Integer userId);
+
 }

@@ -81,12 +81,18 @@
                 <button class="btn" onclick="history.go(-1)">返回</button>
                 <br><br>
                 <label>已有分类</label>
-                <ul class="list-group" th:each="category: ${categories}">
-                        <li class="list-group-item" style="width: 50%;">
-                            <a href="/blog/findAllByCategoryId?categoryId=${item.id}" th:text="${category.getName()}"></span></a>
-                            <a href="#" style="float: right" class="close"><span>&times;</span></a>
-                        </li>
-                </ul>
+                <br>
+                <th:block th:if="${#lists.isEmpty(categories)}">
+                    <div class="alert alert-success">暂无内容</div>
+                </th:block>
+                <span th:each="category: ${categories}">
+                    <th:block th:if="${not #lists.isEmpty(categories)}">
+                        <button type="button" class="btn btn-success">
+                            <span th:text="${category.getName()}"></span>
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                    </th:block>
+                </span>
             </div>
             <div id="right_3" style="display: none">
                 <div class="row">
@@ -95,9 +101,16 @@
                         <input type="text" class="form-control" placeholder="标题">
                     </div>
                     <div class="col-md-6">
-                        <label>请输入文章分类</label>
+                        <label>请选择文章分类</label>
                         <select class="form-control" style="width: 50%">
-                                <option>${item.name}</option>
+                            <th:block th:if="${#lists.isEmpty(categories)}">
+                                <div class="alert alert-success">暂无内容</div>
+                            </th:block>
+                            <span th:each="category: ${categories}">
+                                <th:block th:if="${not #lists.isEmpty(categories)}">
+                                    <option th:text="${category.getName()}"></option>
+                                </th:block>
+                            </span>
                         </select>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 package com.wangzai.blog.constant;
 
-public interface PageHelper {
+public interface PageInfo {
 
     Integer PAGE_NUM_DEFAULT = 1;
 

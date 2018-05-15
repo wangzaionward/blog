@@ -1,0 +1,19 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>联系人导入</title>
+</head>
+<body>
+    <div style="border: 1px solid #ddd; width: 500px; height: 200px; margin: 60px auto">
+        <h3 style="text-align: center">联系人导入</h3>
+        <br>
+        <form action="/doImportContacts" method="post" enctype="multipart/form-data" style="text-align: center">
+            文件: <input type="file" name="file"/>
+            <input type="submit" value="开始导入"/>
+        </form>
+        <br>
+        <h5 style="color: red;">注:文件名必须且只能包含"002"、"003"、"004"中的一个,否则导入失败,建议命名:002.xls或003.xlsx</h5>
+    </div>
+</body>
+</html>
